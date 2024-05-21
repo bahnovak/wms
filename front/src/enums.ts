@@ -5,6 +5,7 @@ export enum Routes {
   PURCHASES = 'purchases',
   STORAGES = 'storages',
   USERS = 'users',
+  SUPPLIERS = 'suppliers',
 }
 
 export enum Role {

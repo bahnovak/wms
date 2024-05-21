@@ -8,6 +8,7 @@ import { Purchases } from './pages/Purchases/Purchases';
 import { Storages } from './pages/Storages/Storages';
 import { Users } from './pages/Users/Users';
 import { Routes } from './enums';
+import { Suppliers } from './pages/Suppliers/Suppliers';
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.STORAGES,
         element: <Storages />,
+      },
+      {
+        path: Routes.SUPPLIERS,
+        element: <Suppliers />,
       },
       {
         path: Routes.USERS,

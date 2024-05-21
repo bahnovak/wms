@@ -1,0 +1,24 @@
+.container {
+    background-color: #1d4ed8;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.container:hover {
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 0 1px 1px black;
+}
+
+.icon {
+    color: white;
+}

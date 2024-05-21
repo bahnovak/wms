@@ -7,6 +7,6 @@ export default {
     paths: {
       login: '/login',
       home: '/',
-    }
-  }
-}
+    },
+  },
+};

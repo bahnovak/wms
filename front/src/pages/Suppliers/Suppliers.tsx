@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchProducts } from '../../api/products';
-import { IProduct } from '../../interfaces';
+import { ISupplier } from '../../interfaces';
 import {
   TableContainer,
   Paper,
@@ -14,10 +13,11 @@ import {
 
 import { AddButton } from '../../components/AddButton/AddButton';
 import { Loader } from '../../components/Loader/Loader';
-import { CreateProductModal } from '../../modals/CreateProductModal/CreateProductModal';
+import { fetchSuppliers } from '../../api/suppliers';
+import { CreateSupplierModal } from '../../modals/CreateSupplierModal/CreateSupplierModal';
 
-export const Products = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
+export const Suppliers = () => {
+  const [suppliers, setSuppliers] = useState<ISupplier[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
@@ -26,11 +26,11 @@ export const Products = () => {
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    fetchProducts({
+    fetchSuppliers({
       limit: rowsPerPage,
       offset: page * rowsPerPage,
     }).then((res) => {
-      setProducts(res[0]);
+      setSuppliers(res[0]);
       setTotalCount(res[1]);
       setIsLoading(false);
     });
@@ -53,7 +53,7 @@ export const Products = () => {
     <Loader />
   ) : (
     <>
-      <CreateProductModal
+      <CreateSupplierModal
         isOpen={modalIsOpen}
         setIsOpen={setModalIsOpen}
         callback={updateCallback}
@@ -64,35 +64,23 @@ export const Products = () => {
             <TableRow>
               <TableCell align="left">Идентификатор</TableCell>
               <TableCell>Название</TableCell>
-              <TableCell>Хранилище</TableCell>
-              <TableCell align="right">Цена</TableCell>
-              <TableCell align="right">Резерв</TableCell>
-              <TableCell align="right">Количество</TableCell>
+              <TableCell>Компания</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
+            {suppliers.map((supplier) => (
               <TableRow
                 sx={{ '& > *': { borderBottom: 'unset' } }}
-                key={product.id}
+                key={supplier.id}
               >
                 <TableCell component="th" scope="row" align="left">
-                  {product.id}
+                  {supplier.id}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {product.name}
+                  {supplier.name}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {product.storageProduct?.storage.name || '-'}
-                </TableCell>
-                <TableCell component="th" scope="row" align="right">
-                  {product.purchasePrice}
-                </TableCell>
-                <TableCell component="th" scope="row" align="right">
-                  {product.storageProduct?.reserved || 0}
-                </TableCell>
-                <TableCell component="th" scope="row" align="right">
-                  {product.storageProduct?.stock || 0}
+                  {supplier.company}
                 </TableCell>
               </TableRow>
             ))}

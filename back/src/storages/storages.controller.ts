@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { StoragesService } from './storages.service';
 import { CreateStorageDto } from './dto/create-storage.dto';
 import { UpdateStorageDto } from './dto/update-storage.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('storages')
 export class StoragesController {
@@ -13,8 +23,8 @@ export class StoragesController {
   }
 
   @Get()
-  findAll() {
-    return this.storagesService.findAll();
+  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    return this.storagesService.findAll(paginationQueryDto);
   }
 
   @Get(':id')

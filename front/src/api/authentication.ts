@@ -1,4 +1,6 @@
-import { ActiveUserData, ITokens, SignInDto } from '../interfaces';
+import { SignInDto } from '../dto';
+import { ActiveUserData, ITokens } from '../interfaces';
+
 import api from './index';
 
 export const refreshTokens = async (refreshToken: string): Promise<ITokens> =>

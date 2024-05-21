@@ -28,6 +28,10 @@ const menuItemsData = [
     text: 'Хранилища',
   },
   {
+    link: Routes.SUPPLIERS,
+    text: 'Перевозчики',
+  },
+  {
     link: Routes.USERS,
     text: 'Пользователи',
   },
@@ -75,7 +79,7 @@ export const Home = () => {
             </NavLink>
           ))}
         </div>
-        <div>
+        <div className={styles.content}>
           <Outlet />
         </div>
       </div>

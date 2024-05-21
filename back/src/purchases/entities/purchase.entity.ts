@@ -1,5 +1,13 @@
 import { PurchasePosition } from 'src/purchase_positions/entities/purchase_position.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Purchase {
@@ -11,4 +19,13 @@ export class Purchase {
 
   @OneToMany(() => PurchasePosition, (p) => p.purchase)
   positions: PurchasePosition[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
 }
