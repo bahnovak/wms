@@ -105,6 +105,7 @@ export const Products = () => {
         count={totalCount}
         rowsPerPage={rowsPerPage}
         page={page}
+        labelRowsPerPage="Строк на странице"
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />

@@ -20,6 +20,16 @@ export interface CreateSupplierDto {
   company: string;
 }
 
+export interface CreateOrderDto {
+  supplierId: number;
+  address: string;
+  products: {
+    productId: number;
+    quantity: number;
+    salesPrice: number;
+  }[];
+}
+
 export interface PaginationQueryDto {
   limit: number;
   offset: number;

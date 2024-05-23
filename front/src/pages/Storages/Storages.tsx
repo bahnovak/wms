@@ -147,6 +147,7 @@ export const Storages = () => {
         component="div"
         count={totalCount}
         rowsPerPage={rowsPerPage}
+        labelRowsPerPage="Строк на странице"
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}

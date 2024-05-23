@@ -23,7 +23,7 @@ export class StoragesService {
         room: createStorageDto.room,
       })
       .execute();
-    return storage;
+    return storage.raw[0];
   }
 
   async findAll(paginationQueryDto: PaginationQueryDto) {

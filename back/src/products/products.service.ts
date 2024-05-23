@@ -41,7 +41,7 @@ export class ProductsService {
         storage: storage[0],
       })
       .execute();
-    return product;
+    return product.raw[0];
   }
 
   findAll(paginationQueryDto: PaginationQueryDto) {

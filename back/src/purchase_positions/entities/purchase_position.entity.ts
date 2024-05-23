@@ -20,12 +20,12 @@ export class PurchasePosition {
   @ManyToOne(() => Purchase, (purchase) => purchase.positions)
   purchase: Purchase;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: 'timestamptz' })
   deleted_at: Date;
 }

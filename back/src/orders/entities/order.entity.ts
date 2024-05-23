@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Status } from '../enums/status.enum';
+import { Supplier } from 'src/suppliers/entities/supplier.entity';
 
 @Entity()
 export class Order {
@@ -24,12 +26,18 @@ export class Order {
   @OneToMany(() => OrderPosition, (position) => position.order)
   positions: OrderPosition[];
 
-  @CreateDateColumn()
+  @ManyToOne(() => Supplier, (supplier) => supplier.orders)
+  supplier: Supplier;
+
+  @Column()
+  address: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: 'timestamptz' })
   deleted_at: Date;
 }

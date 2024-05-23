@@ -12,3 +12,10 @@ export enum Role {
   Regular = 'regular',
   Admin = 'admin',
 }
+
+export enum OrderStatus {
+  InProcessing = 'in_processing',
+  Open = 'open',
+  Closed = 'closed',
+  Completed = 'completed',
+}

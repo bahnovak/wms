@@ -22,7 +22,7 @@ export class SuppliersService {
         company: createSupplierDto.company,
       })
       .execute();
-    return supplier;
+    return supplier.raw[0];
   }
 
   async findAll(paginationQueryDto: PaginationQueryDto) {

@@ -13,6 +13,7 @@ import { PurchasesModule } from './purchases/purchases.module';
 import { OrderPositionsModule } from './order_positions/order_positions.module';
 import { PurchasePositionsModule } from './purchase_positions/purchase_positions.module';
 import { StorageProductsModule } from './storage_products/storage_products.module';
+import { StockHistoryModule } from './stock-history/stock-history.module';
 import appConfig from './config/app.config';
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import appConfig from './config/app.config';
     PurchasePositionsModule,
     StorageProductsModule,
     IamModule,
+    StockHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

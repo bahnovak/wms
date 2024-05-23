@@ -1,4 +1,4 @@
-import { Role } from './enums';
+import { OrderStatus, Role } from './enums';
 
 export interface ITokens {
   refreshToken: string;
@@ -26,6 +26,11 @@ export interface IProduct {
   storageProduct: IStorageProduct;
 }
 
+export interface ICustomProduct extends IProduct {
+  salesPrice: number | '';
+  quantity: number | '';
+}
+
 export interface ISupplier {
   id: number;
   name: string;
@@ -38,4 +43,22 @@ export interface IStorage {
   floor: number;
   room: string;
   products: IStorageProduct[];
+}
+
+export interface IOrder {
+  id: number;
+  number: string;
+  address: string;
+  supplier: ISupplier;
+  positions: IOrderPosition[];
+  status: OrderStatus;
+  created_at: string;
+}
+
+export interface IOrderPosition {
+  id: number;
+  order: IOrder;
+  product: IProduct;
+  salesPrice: number;
+  quantity: number;
 }
