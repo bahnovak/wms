@@ -34,3 +34,24 @@ export interface PaginationQueryDto {
   limit: number;
   offset: number;
 }
+
+export interface CreatePurchaseDto {
+  products: {
+    quantity: number;
+    productId: number;
+  }[];
+}
+
+export interface BookPurchasePositionsDto {
+  storageId: number;
+  positions: {
+    quantity: number;
+    positionId: number;
+  }[];
+}
+
+export interface CreateUserDto {
+  email: string;
+  password: string;
+  name: string;
+}

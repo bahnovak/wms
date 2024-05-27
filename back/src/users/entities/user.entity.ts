@@ -3,12 +3,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../enums/role.enum';
-import { StockHistory } from 'src/stock-history/entities/stock-history.entity';
 
 @Entity()
 export class User {
@@ -21,11 +19,11 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  name: string;
+
   @Column({ enum: Role, default: Role.Regular })
   role: Role;
-
-  // @OneToMany(() => StockHistory, (sh) => sh.user)
-  // history: StockHistory[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;

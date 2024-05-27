@@ -15,10 +15,10 @@ export class OrderPosition {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { default: 0.0, precision: 5, scale: 2 })
+  @Column('decimal', { default: 0.0, precision: 19, scale: 2 })
   salesPrice: number;
 
-  @Column()
+  @Column('integer', { default: 0 })
   quantity: number;
 
   @ManyToOne(() => Order, (order) => order.positions)

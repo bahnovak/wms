@@ -68,6 +68,7 @@ export const Login = () => {
       <TextField
         id="password"
         label="Пароль"
+        type="password"
         variant="outlined"
         className={styles.item}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

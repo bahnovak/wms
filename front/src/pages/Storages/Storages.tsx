@@ -55,7 +55,7 @@ const Row = ({ storage, key }: { storage: IStorage; key: number }) => {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Идентификатор</TableCell>
+                    <TableCell>Id</TableCell>
                     <TableCell>Название</TableCell>
                     <TableCell align="right">Резерв</TableCell>
                     <TableCell align="right">Количество</TableCell>
@@ -88,7 +88,7 @@ export const Storages = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export const Storages = () => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell align="left">Идентификатор</TableCell>
+              <TableCell align="left">Id</TableCell>
               <TableCell>Название</TableCell>
               <TableCell>Этаж</TableCell>
               <TableCell>Комната</TableCell>

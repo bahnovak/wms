@@ -4,19 +4,30 @@ import { UpdateStockHistoryDto } from './dto/update-stock-history.dto';
 import { StockHistory } from './entities/stock-history.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class StockHistoryService {
   constructor(
     @InjectRepository(StockHistory)
-    private readonly orderRepository: Repository<StockHistory>,
-  ){}
+    private readonly stockHistoryRepository: Repository<StockHistory>,
+  ) {}
   create(createStockHistoryDto: CreateStockHistoryDto) {
     return 'This action adds a new stockHistory';
   }
 
-  findAll() {
-    return `This action returns all stockHistory`;
+  async findAll(paginationQueryDto: PaginationQueryDto) {
+    const history = await this.stockHistoryRepository
+      .createQueryBuilder('stockHistory')
+      .leftJoinAndSelect('stockHistory.storageProduct', 'storageProduct')
+      .leftJoinAndSelect('storageProduct.product', 'product')
+      .leftJoinAndSelect('storageProduct.storage', 'storage')
+      .leftJoinAndSelect('stockHistory.user', 'user')
+      .skip(paginationQueryDto.offset)
+      .take(paginationQueryDto.limit)
+      .orderBy('stockHistory.created_at', 'DESC')
+      .getManyAndCount();
+    return history;
   }
 
   findOne(id: number) {

@@ -5,6 +5,8 @@ import styles from './Home.module.scss';
 import logo from '../../assets/logo.png';
 import { Routes } from '../../enums';
 import clsx from 'clsx';
+import { Button } from '@mui/material';
+import { logOut } from '../../services/authentication';
 
 const menuItemsData = [
   {
@@ -26,6 +28,10 @@ const menuItemsData = [
   {
     link: Routes.STORAGES,
     text: 'Хранилища',
+  },
+  {
+    link: Routes.HISTORY,
+    text: 'Операции с запасами',
   },
   {
     link: Routes.SUPPLIERS,
@@ -58,6 +64,11 @@ export const Home = () => {
     if (isLoaded && location.pathname === '/') navigate('/products');
   }, [location, isLoaded, navigate]);
 
+  const signOutHandler = () => {
+    logOut();
+    navigate('/login');
+  };
+
   return (
     isLoaded && (
       <div className={styles.container}>
@@ -79,6 +90,12 @@ export const Home = () => {
             </NavLink>
           ))}
         </div>
+        <div className={styles.signOut}>
+          <Button variant="outlined" onClick={signOutHandler} fullWidth>
+            Выйти
+          </Button>
+        </div>
+
         <div className={styles.content}>
           <Outlet />
         </div>

@@ -22,7 +22,7 @@ export const Products = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
@@ -62,9 +62,8 @@ export const Products = () => {
         <Table aria-label="collapsible table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell align="left">Идентификатор</TableCell>
+              <TableCell align="left">Id</TableCell>
               <TableCell>Название</TableCell>
-              <TableCell>Хранилище</TableCell>
               <TableCell align="right">Цена</TableCell>
               <TableCell align="right">Резерв</TableCell>
               <TableCell align="right">Количество</TableCell>
@@ -82,17 +81,14 @@ export const Products = () => {
                 <TableCell component="th" scope="row">
                   {product.name}
                 </TableCell>
-                <TableCell component="th" scope="row">
-                  {product.storageProduct?.storage.name || '-'}
-                </TableCell>
                 <TableCell component="th" scope="row" align="right">
                   {product.purchasePrice}
                 </TableCell>
                 <TableCell component="th" scope="row" align="right">
-                  {product.storageProduct?.reserved || 0}
+                  {product.storageProducts.reduce((a, p) => a + p.reserved, 0)}
                 </TableCell>
                 <TableCell component="th" scope="row" align="right">
-                  {product.storageProduct?.stock || 0}
+                  {product.storageProducts.reduce((a, p) => a + p.stock, 0)}
                 </TableCell>
               </TableRow>
             ))}

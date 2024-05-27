@@ -7,7 +7,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,13 +16,13 @@ export class StorageProduct {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 0 })
+  @Column('integer', { default: 0 })
   reserved: number;
 
-  @Column({ default: 0 })
+  @Column('integer', { default: 0 })
   stock: number;
 
-  @OneToOne(() => Product, (product) => product.storageProduct)
+  @ManyToOne(() => Product, (p) => p.storageProducts)
   @JoinColumn()
   product: Product;
 

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StockHistoryService } from './stock-history.service';
 import { CreateStockHistoryDto } from './dto/create-stock-history.dto';
 import { UpdateStockHistoryDto } from './dto/update-stock-history.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('stock-history')
 export class StockHistoryController {
@@ -13,8 +14,8 @@ export class StockHistoryController {
   }
 
   @Get()
-  findAll() {
-    return this.stockHistoryService.findAll();
+  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    return this.stockHistoryService.findAll(paginationQueryDto);
   }
 
   @Get(':id')

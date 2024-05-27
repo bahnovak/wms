@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { createSupplier } from '../../api/suppliers';
+import { createUser } from '../../api/users';
 
 const style = {
   position: 'absolute',
@@ -22,7 +22,7 @@ const style = {
   gap: '16px',
 };
 
-export const CreateSupplierModal = ({
+export const CreateUserModal = ({
   isOpen,
   setIsOpen,
   callback,
@@ -32,26 +32,28 @@ export const CreateSupplierModal = ({
   callback: () => void;
 }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [company, setCompany] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
   const onSubmit = async () => {
-    if (!name.length || !company.length) {
+    if (!email.length || password.length < 10) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
       return;
     }
 
     try {
-      await createSupplier({
+      await createUser({
+        email,
+        password,
         name,
-        company,
       });
       setError(false);
       callback();
       setIsOpen(false);
-      enqueueSnackbar('Перевозчик создан успешно', { variant: 'success' });
+      enqueueSnackbar('Пользователь создан успешно', { variant: 'success' });
     } catch (err) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
@@ -68,12 +70,21 @@ export const CreateSupplierModal = ({
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Создать перевозчика
+            Создать пользователя
           </Typography>
           <TextField
             error={error}
             id="outlined-basic"
-            label="Имя перевозчика"
+            label="Почта"
+            variant="outlined"
+            placeholder="Почта должна быть уникальная"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            error={error}
+            id="outlined-basic"
+            label="Имя"
             variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -81,10 +92,12 @@ export const CreateSupplierModal = ({
           <TextField
             error={error}
             id="outlined-basic"
-            label="Компания"
+            label="Пароль"
             variant="outlined"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
+            placeholder="Минимум 10 символов"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button variant="contained" onClick={onSubmit}>
             Создать

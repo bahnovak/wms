@@ -7,6 +7,8 @@ import { OrderPosition } from 'src/order_positions/entities/order_position.entit
 import { Product } from 'src/products/entities/product.entity';
 import { Supplier } from 'src/suppliers/entities/supplier.entity';
 import { StorageProduct } from 'src/storage_products/entities/storage_product.entity';
+import { StockHistory } from 'src/stock-history/entities/stock-history.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { StorageProduct } from 'src/storage_products/entities/storage_product.en
       Supplier,
       OrderPosition,
       StorageProduct,
+      StockHistory,
+      User,
     ]),
   ],
   controllers: [OrdersController],

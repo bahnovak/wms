@@ -47,7 +47,7 @@ export class ProductsService {
   findAll(paginationQueryDto: PaginationQueryDto) {
     return this.productRepository
       .createQueryBuilder('product')
-      .leftJoinAndSelect('product.storageProduct', 'storageProduct')
+      .leftJoinAndSelect('product.storageProducts', 'storageProduct')
       .leftJoinAndSelect('storageProduct.storage', 'storage')
       .skip(paginationQueryDto.offset)
       .take(paginationQueryDto.limit)

@@ -19,14 +19,14 @@ export class Product {
   @Column()
   name: string;
 
-  @Column('decimal', { default: 0.0, precision: 5, scale: 2 })
+  @Column('decimal', { default: 0.0, precision: 19, scale: 2 })
   purchasePrice: number;
 
   @OneToMany(() => OrderPosition, (op) => op.product)
   orderPositions: OrderPosition[];
 
-  @OneToOne(() => StorageProduct, (sp) => sp.product)
-  storageProduct: StorageProduct;
+  @OneToMany(() => StorageProduct, (sp) => sp.product)
+  storageProducts: StorageProduct;
 
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;

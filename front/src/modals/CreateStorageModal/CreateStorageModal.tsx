@@ -37,7 +37,7 @@ export const CreateStorageModal = ({
   const [room, setRoom] = useState('');
   const [error, setError] = useState(false);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!name.length || !room.length || !Number(floor)) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
@@ -45,16 +45,15 @@ export const CreateStorageModal = ({
     }
 
     try {
-      createStorage({
+      await createStorage({
         name,
         floor: Number(floor),
         room: room,
-      }).then(() => {
-        setError(false);
-        callback();
-        setIsOpen(false);
-        enqueueSnackbar('Хранилище создано успешно', { variant: 'success' });
       });
+      setError(false);
+      callback();
+      setIsOpen(false);
+      enqueueSnackbar('Хранилище создано успешно', { variant: 'success' });
     } catch (err) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });

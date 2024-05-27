@@ -152,7 +152,7 @@ const Row = ({
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Идентификатор</TableCell>
+                    <TableCell>Id</TableCell>
                     <TableCell>Название</TableCell>
                     <TableCell align="right">Цена закупки</TableCell>
                     <TableCell align="right">Цена продажи</TableCell>
@@ -189,7 +189,7 @@ export const Orders = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -272,7 +272,7 @@ export const Orders = () => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell align="left">Идентификатор</TableCell>
+              <TableCell align="left">Id</TableCell>
               <TableCell>Номер заказа</TableCell>
               <TableCell>Адрес доставки</TableCell>
               <TableCell>Перевозчик</TableCell>

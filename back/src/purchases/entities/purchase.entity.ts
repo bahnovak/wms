@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PurchaseStatus } from '../enums/purchase-status.enums';
 
 @Entity()
 export class Purchase {
@@ -15,10 +16,13 @@ export class Purchase {
   id: number;
 
   @Column()
-  name: string;
+  number: string;
 
   @OneToMany(() => PurchasePosition, (p) => p.purchase)
   positions: PurchasePosition[];
+
+  @Column({ enum: PurchaseStatus, default: PurchaseStatus.Open })
+  status: PurchaseStatus;
 
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;

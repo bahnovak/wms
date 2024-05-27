@@ -1,4 +1,10 @@
-import { OrderStatus, Role } from './enums';
+import {
+  OperationReason,
+  OperationStockType,
+  OrderStatus,
+  PurchaseStatus,
+  Role,
+} from './enums';
 
 export interface ITokens {
   refreshToken: string;
@@ -6,9 +12,11 @@ export interface ITokens {
 }
 
 export interface ActiveUserData {
+  id: string;
   sub: number;
   email: string;
   role: Role;
+  name: string;
 }
 
 export interface IStorageProduct {
@@ -23,7 +31,7 @@ export interface IProduct {
   id: number;
   name: string;
   purchasePrice: number;
-  storageProduct: IStorageProduct;
+  storageProducts: IStorageProduct[];
 }
 
 export interface ICustomProduct extends IProduct {
@@ -61,4 +69,31 @@ export interface IOrderPosition {
   product: IProduct;
   salesPrice: number;
   quantity: number;
+}
+
+export interface IHistory {
+  id: number;
+  user: ActiveUserData;
+  storageProduct: IStorageProduct;
+  quantity: number;
+  reason: OperationReason;
+  stockType: OperationStockType;
+  reference: string;
+  created_at: string;
+}
+
+export interface IPurchase {
+  id: number;
+  status: PurchaseStatus;
+  number: string;
+  positions: IPurchasePosition[];
+  created_at: string;
+}
+
+export interface IPurchasePosition {
+  id: number;
+  purchase: IPurchase;
+  expected: number;
+  delivered: number;
+  product: IProduct;
 }

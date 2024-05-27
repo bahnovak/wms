@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import { ICustomProduct } from '../../interfaces';
 import { Button } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { createSupplier } from '../../api/suppliers';
+import { ChooseProductsModal } from '../ChooseProductsModal/ChooseProductsModal';
+import { createPurchase } from '../../api/purchases';
 
 const style = {
   position: 'absolute',
@@ -22,7 +23,7 @@ const style = {
   gap: '16px',
 };
 
-export const CreateSupplierModal = ({
+export const CreatePurchaseModal = ({
   isOpen,
   setIsOpen,
   callback,
@@ -31,35 +32,44 @@ export const CreateSupplierModal = ({
   setIsOpen: (isOpen: boolean) => void;
   callback: () => void;
 }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const [name, setName] = useState('');
-  const [company, setCompany] = useState('');
-  const [error, setError] = useState(false);
+  const [products, setProducts] = useState<ICustomProduct[]>([]);
 
   const onSubmit = async () => {
-    if (!name.length || !company.length) {
-      setError(true);
-      enqueueSnackbar('Некорректные данные', { variant: 'error' });
+    if (!products.length) {
+      enqueueSnackbar('Закупка должна содержать минимум один продукт', {
+        variant: 'error',
+      });
       return;
     }
 
     try {
-      await createSupplier({
-        name,
-        company,
+      await createPurchase({
+        products: products.map((p) => ({
+          productId: p.id as number,
+          quantity: p.quantity as number,
+        })),
       });
-      setError(false);
       callback();
       setIsOpen(false);
-      enqueueSnackbar('Перевозчик создан успешно', { variant: 'success' });
+      enqueueSnackbar('Закупка создана успешно', { variant: 'success' });
     } catch (err) {
-      setError(true);
-      enqueueSnackbar('Некорректные данные', { variant: 'error' });
+      enqueueSnackbar('Некорректные данные продуктов', { variant: 'error' });
     }
   };
 
   return (
     <div>
+      {modalIsOpen && (
+        <ChooseProductsModal
+          isPurchase={true}
+          isOpen={modalIsOpen}
+          setIsOpen={setModalIsOpen}
+          callback={setProducts}
+          initialData={products}
+        />
+      )}
       <Modal
         open={isOpen}
         onClose={() => setIsOpen(false)}
@@ -68,24 +78,11 @@ export const CreateSupplierModal = ({
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Создать перевозчика
+            Создать закупку
           </Typography>
-          <TextField
-            error={error}
-            id="outlined-basic"
-            label="Имя перевозчика"
-            variant="outlined"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            error={error}
-            id="outlined-basic"
-            label="Компания"
-            variant="outlined"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-          />
+          <Button variant="contained" onClick={() => setModalIsOpen(true)}>
+            Добавить продукты
+          </Button>
           <Button variant="contained" onClick={onSubmit}>
             Создать
           </Button>

@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { createProduct } from '../../api/products';
 import { useSnackbar } from 'notistack';
+import { customizeStorageName } from '../../utils/storages';
 
 const style = {
   position: 'absolute',
@@ -50,7 +51,7 @@ export const CreateProductModal = ({
     fetchStorages().then((res) => setStorages(res[0]));
   }, [setStorages]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!name.length || !storageId || !(Number(price) > 0)) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
@@ -58,16 +59,15 @@ export const CreateProductModal = ({
     }
 
     try {
-      createProduct({
+      await createProduct({
         name,
         storageId,
         price: Number(price),
-      }).then(() => {
-        setError(false);
-        callback();
-        setIsOpen(false);
-        enqueueSnackbar('Продукт создан успешно', { variant: 'success' });
       });
+      setError(false);
+      callback();
+      setIsOpen(false);
+      enqueueSnackbar('Продукт создан успешно', { variant: 'success' });
     } catch (err) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
@@ -115,7 +115,7 @@ export const CreateProductModal = ({
             >
               {storages.map((s) => (
                 <MenuItem key={s.id} value={s.id}>
-                  {s.name}
+                  {customizeStorageName(s)}
                 </MenuItem>
               ))}
             </Select>

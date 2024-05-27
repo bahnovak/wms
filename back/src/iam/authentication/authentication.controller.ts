@@ -4,7 +4,6 @@ import {
   HttpStatus,
   Post,
   Body,
-  Get,
   // Res,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
@@ -22,7 +21,7 @@ export class AuthenticationController {
 
   @Post('sign-up')
   signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.signUp(signUpDto); 
+    return this.authService.signUp(signUpDto);
   }
 
   @HttpCode(HttpStatus.OK)

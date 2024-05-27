@@ -36,6 +36,7 @@ export class AuthenticationService {
     try {
       const user = new User();
       user.email = signUpDto.email;
+      user.name = signUpDto.name;
       user.password = await this.hashingService.hash(signUpDto.password);
 
       await this.userRepository.save(user);

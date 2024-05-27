@@ -6,6 +6,7 @@ export enum Routes {
   STORAGES = 'storages',
   USERS = 'users',
   SUPPLIERS = 'suppliers',
+  HISTORY = 'history',
 }
 
 export enum Role {
@@ -18,4 +19,21 @@ export enum OrderStatus {
   Open = 'open',
   Closed = 'closed',
   Completed = 'completed',
+}
+
+export enum OperationReason {
+  Order = 'order',
+  Reserve = 'reserve',
+  OrderClose = 'order-close',
+  Purchase = 'purchase',
+}
+
+export enum OperationStockType {
+  Stock = 'stock',
+  Reserve = 'reserve',
+}
+
+export enum PurchaseStatus {
+  Open = 'open',
+  Delivered = 'delivered',
 }

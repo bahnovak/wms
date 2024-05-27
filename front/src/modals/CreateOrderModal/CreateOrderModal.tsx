@@ -52,7 +52,7 @@ export const CreateOrderModal = ({
     fetchSuppliers().then((res) => setSuppliers(res[0]));
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!supplierId || !address.length) {
       setError(true);
       enqueueSnackbar('Некорректные данные', { variant: 'error' });
@@ -66,7 +66,7 @@ export const CreateOrderModal = ({
     }
 
     try {
-      createOrder({
+      await createOrder({
         supplierId,
         address,
         products: products.map((p) => ({
@@ -74,15 +74,13 @@ export const CreateOrderModal = ({
           quantity: p.quantity as number,
           salesPrice: p.salesPrice as number,
         })),
-      }).then(() => {
-        setError(false);
-        callback();
-        setIsOpen(false);
-        enqueueSnackbar('Заказ создан успешно', { variant: 'success' });
       });
+      setError(false);
+      callback();
+      setIsOpen(false);
+      enqueueSnackbar('Заказ создан успешно', { variant: 'success' });
     } catch (err) {
-      setError(true);
-      enqueueSnackbar('Некорректные данные', { variant: 'error' });
+      enqueueSnackbar('Некорректные данные продуктов', { variant: 'error' });
     }
   };
 

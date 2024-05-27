@@ -39,8 +39,10 @@ export const ChooseProductsModal = ({
   setIsOpen,
   callback,
   initialData,
+  isPurchase = false,
 }: {
   isOpen: boolean;
+  isPurchase?: boolean;
   setIsOpen: (isOpen: boolean) => void;
   callback: (products: ICustomProduct[]) => void;
   initialData: ICustomProduct[];
@@ -51,7 +53,7 @@ export const ChooseProductsModal = ({
   );
   const [errorIds, setErrorIds] = useState<number[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -115,8 +117,8 @@ export const ChooseProductsModal = ({
   };
 
   const onAddProducts = () => {
-    const errorProducts = selectedProducts.filter(
-      (sp) => !sp.salesPrice || !sp.quantity,
+    const errorProducts = selectedProducts.filter((sp) =>
+      isPurchase ? !sp.quantity : !sp.salesPrice || !sp.quantity,
     );
     if (errorProducts.length) {
       setErrorIds(errorProducts.map((ep) => ep.id));
@@ -147,9 +149,9 @@ export const ChooseProductsModal = ({
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>Идентификатор</TableCell>
+                  <TableCell>Id</TableCell>
                   <TableCell>Название</TableCell>
-                  <TableCell>Цена продажи</TableCell>
+                  {!isPurchase && <TableCell>Цена продажи</TableCell>}
                   <TableCell>Количество</TableCell>
                 </TableRow>
               </TableHead>
@@ -175,23 +177,25 @@ export const ChooseProductsModal = ({
                         {product.id}
                       </TableCell>
                       <TableCell>{product.name}</TableCell>
-                      <TableCell>
-                        <TextField
-                          error={isError}
-                          disabled={!isChecked}
-                          id="outlined-number"
-                          type="number"
-                          size="small"
-                          value={selectedProduct?.salesPrice}
-                          onChange={(e) =>
-                            onInputChange({
-                              id: product.id,
-                              type: 'salesPrice',
-                              value: e.target.value,
-                            })
-                          }
-                        />
-                      </TableCell>
+                      {!isPurchase && (
+                        <TableCell>
+                          <TextField
+                            error={isError}
+                            disabled={!isChecked}
+                            id="outlined-number"
+                            type="number"
+                            size="small"
+                            value={selectedProduct?.salesPrice}
+                            onChange={(e) =>
+                              onInputChange({
+                                id: product.id,
+                                type: 'salesPrice',
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                        </TableCell>
+                      )}
                       <TableCell>
                         <TextField
                           error={isError}

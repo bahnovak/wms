@@ -9,6 +9,7 @@ import { Storages } from './pages/Storages/Storages';
 import { Users } from './pages/Users/Users';
 import { Routes } from './enums';
 import { Suppliers } from './pages/Suppliers/Suppliers';
+import { History } from './pages/History/History';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.USERS,
         element: <Users />,
+      },
+      {
+        path: Routes.HISTORY,
+        element: <History />,
       },
     ],
   },
