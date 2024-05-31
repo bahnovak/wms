@@ -1,4 +1,11 @@
-import { IsInt, IsNotEmpty, IsPositive } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+  ValidateNested,
+} from 'class-validator';
 
 class Position {
   @IsInt()
@@ -13,6 +20,9 @@ class Position {
 }
 
 export class CreatePurchaseDto {
+  @IsArray()
+  @ValidateNested({ each: true })
   @IsNotEmpty()
+  @Type(() => Position)
   products: Position[];
 }

@@ -66,7 +66,7 @@ export const Home = () => {
 
   const signOutHandler = () => {
     logOut();
-    navigate('/login');
+    window.location.reload();
   };
 
   return (

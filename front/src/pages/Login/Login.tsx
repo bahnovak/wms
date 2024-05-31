@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { identify, signIn } from '../../api/authentication';
 import { setSession } from '../../services/authentication';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 enum eventType {
   password = 'password',
@@ -15,6 +16,7 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const onChange = (
     type: eventType,
@@ -42,7 +44,7 @@ export const Login = () => {
       setSession(tokens);
       navigate('/');
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar('Некорректные данные', { variant: 'error' });
     }
   };
 

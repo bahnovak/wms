@@ -1,9 +1,17 @@
-import { IsInt, IsNotEmpty, IsPositive, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 
 class PositionDto {
   @IsNotEmpty()
+  @IsPositive()
   @IsInt()
-  @Min(1)
   quantity: number;
 
   @IsNotEmpty()
@@ -24,6 +32,9 @@ export class CreateOrderDto {
   @IsNotEmpty()
   address: string;
 
+  @IsArray()
+  @ValidateNested({ each: true })
   @IsNotEmpty()
+  @Type(() => PositionDto)
   products: PositionDto[];
 }
